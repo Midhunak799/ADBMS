@@ -37,7 +37,7 @@ mysql> DESC STDNS;
 ?)Roll_no – Primary key
 
 
-mysql> ALTER TABLE STDNS ADD PRIMARY KEY(ROLL_NO);
+mysql> ALTER TABLE STDNS ADD PRIMARY KEY(ROLL_NO);  //USE CREATE COMMAND ONLY
 Query OK, 0 rows affected (1.12 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 mysql> DESC STDNS;
@@ -73,7 +73,7 @@ mysql> DESC STDNS;
 
 ?)Gender- default value is ‘m’
 
-mysql> ALTER TABLE STDNS ALTER GENDER SET DEFAULT 'M';
+mysql> ALTER TABLE STDNS ALTER GENDER SET DEFAULT 'M';  //USE CREATE COMMAND ONLY
 Query OK, 0 rows affected (0.51 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 mysql> DESC STDNS;
@@ -266,3 +266,5 @@ mysql> DESC STDNS
 5 rows in set (0.00 sec)
 
 
+
+//EXP:1 I DDL-CREATE SO USE CREATE COMMAND ONLY
