@@ -23,7 +23,7 @@ mysql> select * from PRODUCT;
 
 1.Update the price of a particular product.
 
-mysql> update PRODUCT set PRICE=12000 where P_ID=10;
+mysql> update PRODUCT set PRICE=12000 where P_ID=10;//MENTION PRODUCT NAME
 Query OK, 1 row affected (0.06 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -68,7 +68,7 @@ mysql> select * from CUST;
 
 
 mysql> 
-mysql> update CUST set CITY='KOZHIKODE' where CUST_ID=1;
+mysql> update CUST set CITY='KOZHIKODE' where CUST_ID=1; //WRONG
 Query OK, 1 row affected (0.51 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -152,7 +152,7 @@ mysql> select * from CUST;
 
 
 
-mysql> update CUST set ADDRESS='NARIKKUNI',CITY='PKD',PH_NO=974656465 where CUST_ID=2;
+mysql> update CUST set ADDRESS='NARIKKUNI',CITY='PKD',PH_NO=974656465 where CUST_ID=2;//MENTION NAME
 Query OK, 1 row affected (0.05 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -193,7 +193,7 @@ mysql> select * from INVOICE_ITEMS;
 9 rows in set (0.00 sec)
 
 
-mysql> update INVOICE_ITEMS set QUANTITY=15 WHERE INV_ID=101;
+mysql> update INVOICE_ITEMS set QUANTITY=15 WHERE INV_ID=101; //WRONG
 Query OK, 1 row affected (0.05 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -216,5 +216,5 @@ mysql> select * from INVOICE_ITEMS;
 
 
 
-
+//CORRECTION
 
