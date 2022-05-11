@@ -1,0 +1,164 @@
+Experiment No: 7 SELECT query 2
+DML- SELECT QUERY 2 (GROUP BY, AGGREGATE FUNCTIONS)
+1.List product name, price except soap on price order. 
+2.Find minimum, maximum and average price of products. 
+3.Find number of customers in each city. 
+4.Find number of customers in each city, only include city with more than 3 customers. 
+5.Show data as displayed ‘who, where’ Eg: ‘customer1 lives in ekm’.
+
+
+
+1.List product name, price except soap on price order.
+mysql> SELECT * FROM PRODUCT;
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12240 |
+|   11 | CRICKET_BALL   |   510 |
+|   12 | CRICKET_PAD    |  2040 |
+|   13 | CRICKET HELMET |  4080 |
+|   14 | STUMPS         |  1020 |
+|   15 | GLOWS          |   102 |
+|   16 | CAP            |  81.6 |
+|   17 | JERSY          | 122.4 |
+|   18 | SOAP           |   510 |
++------+----------------+-------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT P_NAME,PRICE FROM PRODUCT WHERE P_NAME!='SOAP' ORDER BY PRICE;
++----------------+-------+
+| P_NAME         | PRICE |
++----------------+-------+
+| CAP            |  81.6 |
+| GLOWS          |   102 |
+| JERSY          | 122.4 |
+| CRICKET_BALL   |   510 |
+| STUMPS         |  1020 |
+| CRICKET_PAD    |  2040 |
+| CRICKET HELMET |  4080 |
+| CRICKET_BAT    | 12240 |
++----------------+-------+
+8 rows in set (0.00 sec)
+
+
+
+2.Find minimum, maximum and average price of products. 
+mysql> SELECT * FROM PRODUCT;
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12240 |
+|   11 | CRICKET_BALL   |   510 |
+|   12 | CRICKET_PAD    |  2040 |
+|   13 | CRICKET HELMET |  4080 |
+|   14 | STUMPS         |  1020 |
+|   15 | GLOWS          |   102 |
+|   16 | CAP            |  81.6 |
+|   17 | JERSY          | 122.4 |
+|   18 | SOAP           |   510 |
++------+----------------+-------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT MIN(PRICE) AS MIN_PRICE,MAX(PRICE) AS MAX_PRICE,AVG(PRICE)AS AVG_PRICE FROM PRODUCT ;
+
+mysql> SELECT MIN(PRICE) AS MIN_PRICE,MAX(PRICE) AS MAX_PRICE,AVG(PRICE)AS AVG_PRICE FROM PRODUCT ;
++------------------+-----------+--------------------+
+| MIN_PRICE        | MAX_PRICE | AVG_PRICE          |
++------------------+-----------+--------------------+
+| 81.5999984741211 |     12240 | 2300.6666666666665 |
++------------------+-----------+--------------------+
+1 row in set (0.00 sec)
+
+
+
+
+3.Find number of customers in each city. 
+mysql> SELECT * FROM CUST;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       | 953937782 |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
+|       7 | ANAND  | MAHE       | KNR       |      NULL |
++---------+--------+------------+-----------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT CITY, COUNT(CUST_ID) FROM CUST GROUP BY CITY;
++-----------+----------------+
+| CITY      | COUNT(CUST_ID) |
++-----------+----------------+
+| EKM       |              1 |
+| KNR       |              2 |
+| KOZHIKODE |              1 |
+| MLP       |              1 |
+| TVM       |              1 |
+| WND       |              1 |
++-----------+----------------+
+6 rows in set (0.00 sec)
+
+
+4.Find number of customers in each city, only include city with more than 3 customers.
+
+mysql> SELECT * FROM CUST;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       | 953937782 |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
+|       7 | ANAND  | MAHE       | KNR       |      NULL |
+|       8 | SANAN  | VADAKARA   | KNR       | 987654322 |
+|       9 | ALEN   | KANNUR     | KNR       | 987654328 |
++---------+--------+------------+-----------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT CITY, COUNT(CUST_ID) FROM CUST GROUP BY CITY HAVING COUNT(CUST_ID)>3;
++------+----------------+
+| CITY | COUNT(CUST_ID) |
++------+----------------+
+| KNR  |              4 |
++------+----------------+
+1 row in set (0.00 sec)
+
+
+
+5.Show data as displayed ‘who, where’ Eg: ‘customer1 lives in ekm’.
+mysql> SELECT * FROM CUST;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       | 953937782 |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
+|       7 | ANAND  | MAHE       | KNR       |      NULL |
+|       8 | SANAN  | VADAKARA   | KNR       | 987654322 |
+|       9 | ALEN   | KANNUR     | KNR       | 987654328 |
++---------+--------+------------+-----------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT CONCAT(NAME,' LIVES IN ',CITY)AS CUST_DETAILS FROM CUST;
++--------------------------+
+| CUST_DETAILS             |
++--------------------------+
+| ASWIN LIVES IN KOZHIKODE |
+| ARJUN LIVES IN EKM       |
+| ARUN LIVES IN TVM        |
+| JITHU LIVES IN WND       |
+| JUNAID LIVES IN MLP      |
+| MIDHUN LIVES IN KNR      |
+| ANAND LIVES IN KNR       |
+| SANAN LIVES IN KNR       |
+| ALEN LIVES IN KNR        |
++--------------------------+
+9 rows in set (0.00 sec)
+
