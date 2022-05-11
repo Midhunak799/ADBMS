@@ -541,3 +541,4 @@ mysql> SELECT * FROM CUST WHERE NAME LIKE 'A__%';
 
 
 
+//VERIFIED
