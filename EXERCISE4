@@ -65,7 +65,7 @@ mysql> select * from CUST;
 
 
 mysql> 
-mysql> update CUST set CITY='KOZHIKODE' where CITY=CLT;
+mysql> update CUST set CITY='KOZHIKODE' where CITY='CLT';
 Query OK, 1 row affected (0.51 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -212,6 +212,6 @@ mysql> select * from INVOICE_ITEMS;
 
 
 
-
+//VERIFIED
 
 
