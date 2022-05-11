@@ -162,3 +162,4 @@ mysql> SELECT CONCAT(NAME,' LIVES IN ',CITY)AS CUST_DETAILS FROM CUST;
 +--------------------------+
 9 rows in set (0.00 sec)
 
+//VERIFIED
