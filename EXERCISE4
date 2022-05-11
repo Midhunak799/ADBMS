@@ -1,0 +1,217 @@
+DML COMAND-UPDATE
+
+
+
+
+mysql> select * from PRODUCT;
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 10000 |
+|   11 | CRICKET_BALL   |  1000 |
+|   12 | CRICKET_PAD    |  2000 |
+|   13 | CRICKET HELMET |  4000 |
+|   14 | STUMPS         |  1000 |
+|   15 | GLOWS          |   100 |
+|   16 | CAP            |    80 |
+|   17 | JERSY          |   120 |
++------+----------------+-------+
+8 rows in set (0.00 sec)
+--------------------------------------
+--------------------------------------
+
+
+1.Update the price of a particular product.
+
+mysql> update PRODUCT set PRICE=12000 where P_NAME='CRICKET_BAT';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> select * from PRODUCT;
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12000 |
+|   11 | CRICKET_BALL   |  1000 |
+|   12 | CRICKET_PAD    |  2000 |
+|   13 | CRICKET HELMET |  4000 |
+|   14 | STUMPS         |  1000 |
+|   15 | GLOWS          |   100 |
+|   16 | CAP            |    80 |
+|   17 | JERSY          |   120 |
++------+----------------+-------+
+8 rows in set (0.01 sec)
+------------------------------------
+------------------------------------
+
+2.Change the name of city ‘calicut’ to ‘kozhikode’ in the customer table. 
+
+mysql> select * from CUST;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | CLT       | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       |      NULL |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
++---------+--------+------------+-----------+-----------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+mysql> 
+mysql> update CUST set CITY='KOZHIKODE' where CITY=CLT;
+Query OK, 1 row affected (0.51 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from CUST;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       |      NULL |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
++---------+--------+------------+-----------+-----------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+----------------------------------------------------------------
+-----------------------------------------------------------------
+
+3.Update all prices with 2% of its original price.
+
+
+mysql> select * from PRODUCT;
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12000 |
+|   11 | CRICKET_BALL   |  1000 |
+|   12 | CRICKET_PAD    |  2000 |
+|   13 | CRICKET HELMET |  4000 |
+|   14 | STUMPS         |  1000 |
+|   15 | GLOWS          |   100 |
+|   16 | CAP            |    80 |
+|   17 | JERSY          |   120 |
++------+----------------+-------+
+8 rows in set (0.00 sec)
+
+mysql> update PRODUCT set PRICE=PRICE+(0.02*PRICE);
+Query OK, 8 rows affected (0.05 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
+
+mysql> select * from PRODUCT;
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12240 |
+|   11 | CRICKET_BALL   |  1020 |
+|   12 | CRICKET_PAD    |  2040 |
+|   13 | CRICKET HELMET |  4080 |
+|   14 | STUMPS         |  1020 |
+|   15 | GLOWS          |   102 |
+|   16 | CAP            |  81.6 |
+|   17 | JERSY          | 122.4 |
++------+----------------+-------+
+8 rows in set (0.00 sec
+
+
+-------------------------------------
+-------------------------------------
+
+4.Change the address, city, phone number of a particular customer.
+
+mysql> select * from CUST;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       |      NULL |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
++---------+--------+------------+-----------+-----------+
+6 rows in set (0.00 sec)
+
+
+
+
+mysql> update CUST set ADDRESS='NARIKKUNI',CITY='PKD',PH_NO=974656465 where NAME='ARJUN';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from CUST;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | NARIKKUNI  | PKD       | 974656465 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       |      NULL |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
++---------+--------+------------+-----------+-----------+
+6 rows in set (0.00 sec)
+
+
+
+--------------------------------------------------------------
+---------------------------------------------------------------
+
+5.Change the quantity of a purchased product of inv_id ‘101’
+
+mysql> select * from INVOICE_ITEMS;
++--------+------+----------+
+| INV_ID | P_ID | QUANTITY |
++--------+------+----------+
+|    100 |   10 |        2 |
+|    101 |   10 |       10 |
+|    102 |   11 |        5 |
+|    103 |   10 |        2 |
+|    104 |   12 |        2 |
+|    104 |   13 |        6 |
+|    104 |   14 |        3 |
+|    105 |   12 |        4 |
+|    105 |   15 |        5 |
++--------+------+----------+
+9 rows in set (0.00 sec)
+
+
+mysql> update INVOICE_ITEMS set QUANTITY=15 WHERE INV_ID=101 AND P_ID=10;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from INVOICE_ITEMS;
++--------+------+----------+
+| INV_ID | P_ID | QUANTITY |
++--------+------+----------+
+|    100 |   10 |        2 |
+|    101 |   10 |       15 |
+|    102 |   11 |        5 |
+|    103 |   10 |        2 |
+|    104 |   12 |        2 |
+|    104 |   13 |        6 |
+|    104 |   14 |        3 |
+|    105 |   12 |        4 |
+|    105 |   15 |        5 |
++--------+------+----------+
+9 rows in set (0.00 sec)
+
+
+
+
+
+
