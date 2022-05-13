@@ -1,0 +1,121 @@
+EXERCISE9
+9 JOINS 
+1.      
+List
+the product name and quantity of invoice items. 
+
+
+2.      
+Display
+invoice details of the transaction dated ’31-01-2022’. 
+
+
+3.      
+Display
+the customer name, product name, invoice date of purchased item ‘pen’. 
+
+
+4.      
+Display
+all customer details and invoice details must include customer has not
+purchased items. 
+----------------------------------------------------------------------------------------------------------------
+
+
+1.List the product name and quantity of invoice items. 
+
+
+mysql> SELECT * FROM INVOICE_ITEMS;
++--------+------+----------+
+| INV_ID | P_ID | QUANTITY |
++--------+------+----------+
+|    100 |   10 |        2 |
+|    102 |   11 |        5 |
+|    104 |   12 |        2 |
+|    104 |   14 |        3 |
+|    105 |   12 |        4 |
+|    105 |   15 |        5 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCT;
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12240 |
+|   11 | CRICKET_BALL   |   510 |
+|   12 | CRICKET_PAD    |  2040 |
+|   13 | CRICKET HELMET |  4080 |
+|   14 | STUMPS         |  1020 |
+|   15 | GLOWS          |   102 |
+|   16 | CAP            |  81.6 |
+|   17 | JERSY          | 122.4 |
+|   18 | SOAP           |   510 |
++------+----------------+-------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT PRODUCT.P_NAME,INVOICE_ITEMS.QUANTITY FROM PRODUCT INNER JOIN INVOICE_ITEMS ON PRODUCT.P_ID=INVOICE_ITEMS.P_ID;
++--------------+----------+
+| P_NAME       | QUANTITY |
++--------------+----------+
+| CRICKET_BAT  |        2 |
+| CRICKET_BALL |        5 |
+| CRICKET_PAD  |        2 |
+| STUMPS       |        3 |
+| CRICKET_PAD  |        4 |
+| GLOWS        |        5 |
++--------------+----------+
+6 rows in set (0.02 sec)
+
+mysql> 
+2.Display invoice details of the transaction dated ’31-01-2022’. 
+mysql> SELECT INVOICE_MASTER.INV_ID,INVOICE_MASTER.INV_DATE,CUST.NAME,PRODUCT.P_NAME,INVOICE_ITEMS.QUANTITY FROM CUST INNER JOIN INVOICE_MASTER ON CUST.CUST_ID=INVOICE_MASTER.CUST_ID INNER JOIN INVOICE_ITEMS ON INVOICE_MASTER.INV_ID=INVOICE_ITEMS.INV_ID INNER JOIN PRODUCT ON INVOICE_ITEMS.P_ID=PRODUCT.P_ID WHERE INV_DATE='2022-01-31';
++--------+------------+-------+-------------+----------+
+| INV_ID | INV_DATE   | NAME  | P_NAME      | QUANTITY |
++--------+------------+-------+-------------+----------+
+|    100 | 2022-01-31 | ASWIN | CRICKET_BAT |        2 |
++--------+------------+-------+-------------+----------+
+1 row in set (0.00 sec)
+--------------------------------------------------------------------------------------------------------------------- 
+
+3.Displaythe customer name, product name, invoice date of purchased item ‘pen’. 
+
+mysql> SELECT  INVOICE_MASTER.INV_DATE,CUST.NAME,PRODUCT.P_NAME  FROM  INVOICE_MASTER INNER JOIN CUST ON INVOICE_MASTER.CUST_ID=CUST.CUST_ID INNER JOIN INVOICE_ITEMS ON INVOICE_MASTER.INV_ID=INVOICE_ITEMS.INV_ID INNER JOIN PRODUCT ON INVOICE_ITEMS.P_ID=PRODUCT.P_ID WHERE P_NAME='CRICKET_BAT';
++------------+-------+-------------+
+| INV_DATE   | NAME  | P_NAME      |
++------------+-------+-------------+
+| 2022-01-31 | ASWIN | CRICKET_BAT |
++------------+-------+-------------+
+1 row in set (0.00 sec)
+-----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+4.Display all customer details and invoice details must include customer has not
+purchased items.
+mysql> SELECT CUST.NAME, INVOICE_MASTER.INV_ID,INVOICE_MASTER.INV_DATE,PRODUCT.P_NAME,INVOICE_ITEMS.QUANTITY FROM CUST LEFT JOIN INVOICE_MASTER ON CUST.CUST_ID=INVOICE_MASTER.CUST_ID LEFT JOIN INVOICE_ITEMS ON INVOICE_MASTER.INV_ID=INVOICE_ITEMS.INV_ID LEFT JOIN PRODUCT ON INVOICE_ITEMS.P_ID=PRODUCT.P_ID;
++--------+--------+------------+--------------+----------+
+| NAME   | INV_ID | INV_DATE   | P_NAME       | QUANTITY |
++--------+--------+------------+--------------+----------+
+| ASWIN  |    100 | 2022-01-31 | CRICKET_BAT  |        2 |
+| ARUN   |    102 | 2022-03-31 | CRICKET_BALL |        5 |
+| JUNAID |    104 | 2022-08-16 | CRICKET_PAD  |        2 |
+| JUNAID |    104 | 2022-08-16 | STUMPS       |        3 |
+| MIDHUN |    105 | 2022-06-21 | CRICKET_PAD  |        4 |
+| MIDHUN |    105 | 2022-06-21 | GLOWS        |        5 |
+| ARJUN  |    101 | 2022-03-01 | NULL         |     NULL |
+| JITHU  |    103 | 2022-02-15 | NULL         |     NULL |
+| ANAND  |    106 | 2022-01-15 | NULL         |     NULL |
+| SANAN  |   NULL | NULL       | NULL         |     NULL |
+| ALEN   |   NULL | NULL       | NULL         |     NULL |
++--------+--------+------------+--------------+----------+
+11 rows in set (0.02 sec)
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
