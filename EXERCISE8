@@ -1,0 +1,162 @@
+	
+NEW ASSIGNMENT
+Experiment No:8 SUBQUERY
+SUBQUERY 
+1.List the customer names of invoice date 3rd February 2018. 
+2.List the product name and price of each invoice item. 
+3.List the product names, only include their purchased quantity more than 3. 
+4.Find the product that has no sale. 
+5.List the customer names who purchased the items ‘pen’ and ‘pencil’. 
+6.Display the purchased product details of the customer ’xyz’. 
+7.List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+
+
+
+
+
+
+
+1.List the customer names of invoice date 3rd February 2018. 
+mysql> SELECT * FROM INVOICE_MASTER;
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|    100 |       1 | 2021-01-01 |
+|    101 |       2 | 2022-03-01 |
+|    102 |       3 | 2022-03-31 |
+|    103 |       4 | 2022-02-15 |
+|    104 |       5 | 2022-08-16 |
+|    105 |       6 | 2022-06-21 |
+|    106 |       7 | 2018-02-03 |
++--------+---------+------------+
+7 rows in set (0.01 sec)
+
+mysql> 
+
+mysql> SELECT NAME FROM CUST WHERE CUST_ID=(SELECT CUST_ID FROM INVOICE_MASTER WHERE INV_DATE='2018-02-03');
++-------+
+| NAME  |
++-------+
+| ANAND |
++-------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+2.List the product name and price of each invoice item. 
+mysql> SELECT * FROM PRODUCT
+    -> ;
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12240 |
+|   11 | CRICKET_BALL   |   510 |
+|   12 | CRICKET_PAD    |  2040 |
+|   13 | CRICKET HELMET |  4080 |
+|   14 | STUMPS         |  1020 |
+|   15 | GLOWS          |   102 |
+|   16 | CAP            |  81.6 |
+|   17 | JERSY          | 122.4 |
+|   18 | SOAP           |   510 |
++------+----------------+-------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INVOICE_ITEMS;
++--------+------+----------+
+| INV_ID | P_ID | QUANTITY |
++--------+------+----------+
+|    100 |   10 |        2 |
+|    102 |   11 |        5 |
+|    104 |   12 |        2 |
+|    104 |   14 |        3 |
+|    105 |   12 |        4 |
+|    105 |   15 |        5 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT P_NAME,PRICE FROM PRODUCT WHERE P_ID IN(SELECT P_ID FROM INVOICE_ITEMS);
++--------------+-------+
+| P_NAME       | PRICE |
++--------------+-------+
+| CRICKET_BAT  | 12240 |
+| CRICKET_BALL |   510 |
+| CRICKET_PAD  |  2040 |
+| STUMPS       |  1020 |
+| GLOWS        |   102 |
++--------------+-------+
+5 rows in set (0.02 sec)
+
+mysql> 
+
+3.List the product names, only include their purchased quantity more than 3. 
+
+mysql> SELECT P_NAME FROM PRODUCT WHERE P_ID IN(SELECT P_ID FROM INVOICE_ITEMS WHERE QUANTITY > 3);
++--------------+
+| P_NAME       |
++--------------+
+| CRICKET_BALL |
+| CRICKET_PAD  |
+| GLOWS        |
++--------------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+
+4.Find the product that has no sale. 
+
+mysql> SELECT P_NAME  FROM PRODUCT WHERE P_ID NOT IN(SELECT P_ID FROM INVOICE_ITEMS);
++----------------+
+| P_NAME         |
++----------------+
+| CRICKET HELMET |
+| CAP            |
+| JERSY          |
+| SOAP           |
++----------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+
+5.List the customer names who purchased the items ‘pen’ and ‘pencil’. 
+
+
+ mysql> SELECT NAME FROM CUST WHERE CUST_ID IN (SELECT CUST_ID FROM INVOICE_MASTER WHERE INV_ID IN(SELECT INV_ID FROM INVOICE_ITEMS WHERE P_ID IN(SELECT P_ID FROM PRODUCT WHERE P_NAME= 'CRICKET_BAT'   OR  P_NAME= 'CRICKET_BALL'))) ;
++-------+
+| NAME  |
++-------+
+| ASWIN |
+| ARUN  |
++-------+
+2 rows in set (0.00 sec)
+
+6.Display the purchased product details of the customer ’xyz’. 
+
+
+mysql> SELECT P_NAME,PRICE FROM PRODUCT WHERE P_ID IN(SELECT P_ID FROM INVOICE_ITEMS WHERE INV_ID IN(SELECT INV_ID FROM INVOICE_MASTER WHERE CUST_ID IN(SELECT CUST_ID FROM CUST WHERE NAME='JUNAID')));
++-------------+-------+
+| P_NAME      | PRICE |
++-------------+-------+
+| CRICKET_PAD |  2040 |
+| STUMPS      |  1020 |
++-------------+-------+
+2 rows in set (0.01 sec)
+
+
+
+7.List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+
+
+mysql> SELECT NAME FROM CUST WHERE CUST_ID IN(SELECT CUST_ID FROM INVOICE_MASTER WHERE INV_ID IN(SELECT INV_ID FROM INVOICE_ITEMS GROUP BY INV_ID HAVING COUNT(INV_ID)>=2));
++--------+
+| NAME   |
++--------+
+| JUNAID |
+| MIDHUN |
++--------+
+2 rows in set (0.00 sec)
+
+
