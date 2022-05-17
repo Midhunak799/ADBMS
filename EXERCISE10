@@ -1,0 +1,68 @@
+Experiment No: 10
+10 VIEWS 
+
+
+1.      
+Create
+a view for customers who have purchased products. 
+
+
+2.      
+Create
+a view for invoice products[cname, , inv_id, product_id, quantity] 
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------QUESTION 1----------------------------------------------------------------------------
+
+1.Create a view for customers who have purchased products. 
+
+
+
+mysql> CREATE VIEW PURCHASEPRODUCT AS SELECT CUST.*FROM CUST INNER JOIN INVOICE_MASTER ON CUST.CUST_ID=INVOICE_MASTER.CUST_ID;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> SELECT*FROM PURCHASEPRODUCT;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       | 953937782 |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
+|       7 | ANAND  | MAHE       | KNR       |      NULL |
++---------+--------+------------+-----------+-----------+
+7 rows in set (0.02 sec)
+
+
+
+
+----------------------------------------------------------------QUESTION 2-------------------------------------------------------------
+
+
+2.Create a view for invoice products[cname, , inv_id, product_id, quantity] 
+
+
+
+
+mysql> CREATE VIEW INVPRDT AS SELECT CUST.NAME,INVOICE_MASTER.INV_ID,PRODUCT.P_ID,INVOICE_ITEMS.QUANTITY FROM CUST INNER JOIN INVOICE_MASTER ON CUST.CUST_ID=INVOICE_MASTER.CUST_ID INNER JOIN INVOICE_ITEMS ON INVOICE_MASTER.INV_ID=INVOICE_ITEMS.INV_ID INNER JOIN PRODUCT ON PRODUCT.P_ID=INVOICE_ITEMS.P_ID;
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> SELECT*FROM INVPRDT;
++--------+--------+------+----------+
+| NAME   | INV_ID | P_ID | QUANTITY |
++--------+--------+------+----------+
+| ASWIN  |    100 |   10 |        2 |
+| ARUN   |    102 |   11 |        5 |
+| JUNAID |    104 |   12 |        2 |
+| JUNAID |    104 |   14 |        3 |
+| MIDHUN |    105 |   12 |        4 |
+| MIDHUN |    105 |   15 |        5 |
++--------+--------+------+----------+
+6 rows in set (0.03 sec)
+
+
