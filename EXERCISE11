@@ -43,7 +43,7 @@ quantity =3 (use special operators)
 
 
 
-
+??
 
 
 
@@ -214,3 +214,4 @@ mysql> SELECT P_NAME FROM PRODUCT WHERE P_ID IN(SELECT P_ID FROM INVOICE_ITEMS W
 | STUMPS |
 +--------+
 
+//INCOMPLETE
