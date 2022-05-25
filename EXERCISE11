@@ -1,0 +1,162 @@
+Experiment No: 11
+11 Optimising database (Using Set, arithmetic, logical and special
+operators) 
+
+
+1. Display customer_id,city who lives either in calicut or tvm;
+     
+
+2.      Display
+product details with an updated price amount(new price= old price+5rs)
+
+
+3.      Display
+customer details who doesn’t have phone number and lives in ‘Calicut’ city (use
+logical operators)
+
+
+4.      List
+the product names if it finds any records in the invoice items table has
+quantity =3 (use special operators)
+
+
+
+
+
+----------------------------------------------------------EXERCISE 11------------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------QUESTION 1----------------------------------------------------------------------
+
+1.Display customer_id,city who lives either in calicut or tvm;
+
+mysql> SELECT * FROM CUST;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       | 953937782 |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
+|       7 | ANAND  | MAHE       | KNR       |      NULL |
+|       8 | SANAN  | VADAKARA   | KNR       | 987654322 |
+|       9 | ALEN   | KANNUR     | KNR       | 987654328 |
++---------+--------+------------+-----------+-----------+
+9 rows in set (0.00 sec)
+
+
+mysql> SELECT CUST_ID,CITY FROM CUST WHERE CITY='KOZHIKODE' UNION SELECT CUST_ID,CITY FROM CUST WHERE CITY='TVM';
++---------+-----------+
+| CUST_ID | CITY      |
++---------+-----------+
+|       1 | KOZHIKODE |
+|       3 | TVM       |
++---------+-----------+
+2 rows in set (0.00 sec)
+
+
+
+
+---------------------------------------------------QUESTION 2-------------------------------------------------------------------------------
+
+2.Display product details with an updated price amount(new price= old price+5rs)
+
+mysql> SELECT * FROM PRODUCT;
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12240 |
+|   11 | CRICKET_BALL   |   510 |
+|   12 | CRICKET_PAD    |  2040 |
+|   13 | CRICKET HELMET |  4080 |
+|   14 | STUMPS         |  1020 |
+|   15 | GLOWS          |   102 |
+|   16 | CAP            |  81.6 |
+|   17 | JERSY          | 122.4 |
+|   18 | SOAP           |   510 |
++------+----------------+-------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT P_ID,P_NAME,PRICE,PRICE+5 AS "PRICE+5" FROM PRODUCT;
++------+----------------+-------+-------------------+
+| P_ID | P_NAME         | PRICE | PRICE+5           |
++------+----------------+-------+-------------------+
+|   10 | CRICKET_BAT    | 12240 |             12245 |
+|   11 | CRICKET_BALL   |   510 |               515 |
+|   12 | CRICKET_PAD    |  2040 |              2045 |
+|   13 | CRICKET HELMET |  4080 |              4085 |
+|   14 | STUMPS         |  1020 |              1025 |
+|   15 | GLOWS          |   102 |               107 |
+|   16 | CAP            |  81.6 |  86.5999984741211 |
+|   17 | JERSY          | 122.4 | 127.4000015258789 |
+|   18 | SOAP           |   510 |               515 |
++------+----------------+-------+-------------------+
+9 rows in set (0.00 sec)
+
+
+
+---------------------------------------------------QUESTION 3-------------------------------------------------------------------------------
+3.      Display
+customer details who doesn’t have phone number and lives in ‘Calicut’ city (use
+logical operators)
+
+mysql> SELECT * FROM CUST;
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       | 953937782 |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
+|       7 | ANAND  | MAHE       | KNR       |      NULL |
+|       8 | SANAN  | VADAKARA   | KNR       | 987654322 |
+|       9 | ALEN   | KANNUR     | KNR       | 987654328 |
++---------+--------+------------+-----------+-----------+
+9 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM CUST WHERE CITY='KNR' AND PH_NO IS NULL;
++---------+-------+---------+------+-------+
+| CUST_ID | NAME  | ADDRESS | CITY | PH_NO |
++---------+-------+---------+------+-------+
+|       7 | ANAND | MAHE    | KNR  |  NULL |
++---------+-------+---------+------+-------+
+1 row in set (0.00 sec)
+
+
+
+
+---------------------------------------------------QUESTION 4------------------------------------------------------------------------------
+4.      List
+the product names if it finds any records in the invoice items table has
+quantity =3 (use special operators)
+
+
+mysql> SELECT * FROM INVOICE_ITEMS;
++--------+------+----------+
+| INV_ID | P_ID | QUANTITY |
++--------+------+----------+
+|    100 |   10 |        2 |
+|    102 |   11 |        5 |
+|    104 |   12 |        2 |
+|    104 |   14 |        3 |
+|    105 |   12 |        4 |
+|    105 |   15 |        5 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+
+mysql> SELECT P_NAME FROM PRODUCT WHERE P_ID IN(SELECT P_ID FROM INVOICE_ITEMS WHERE QUANTITY=3);
++--------+
+| P_NAME |
++--------+
+| STUMPS |
++--------+
+
