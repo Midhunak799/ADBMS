@@ -1,0 +1,63 @@
+12. DCL COMMAND 
+Create two users user1, user2 
+1.	GRANT 
+Give insert and select privilege to user 1 on customer table in the invoice database. 
+Give update and delete privilege to user 2 on all tables in the invoice database. 
+2.	REVOKE 
+Remove delete privilege of user 2.
+
+
+---------------------------------------------------------------QUESTION1--------------------------------------------------------------
+1.GRANT Give insert and select privilege to user 1 on customer table in the invoice database. 
+
+mysql> create user akmdn@localhost identified by 'akmdn';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create user akmdns@localhost identified by 'akmdns';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for akmdn@localhost;
++-------------------------------------------+
+| Grants for akmdn@localhost                |
++-------------------------------------------+
+| GRANT USAGE ON *.* TO 'akmdn'@'localhost' |
++-------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> grant insert,select on CUST to akmdn@localhost;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for akmdn@localhost;
++-----------------------------------------------------------------+
+| Grants for akmdn@localhost                                      |
++-----------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'akmdn'@'localhost'                       |
+| GRANT SELECT, INSERT ON `INVOICE`.`CUST` TO 'akmdn'@'localhost' |
++-----------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> grant update,delete on * to akmdns@localhost;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for akmdns@localhost;
++-------------------------------------------------------------+
+| Grants for akmdns@localhost                                 |
++-------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'akmdns'@'localhost'                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO 'akmdns'@'localhost' |
++-------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke delete on *.* from akmdns@localhost;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for akmdns@localhost;
++-------------------------------------------------------------+
+| Grants for akmdns@localhost                                 |
++-------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'akmdns'@'localhost'                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO 'akmdns'@'localhost' |
++-------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
