@@ -1,0 +1,174 @@
+14 PL/SQL PROGRAMS- STORED PROCEDURES 
+
+
+1.      
+Create
+a procedure to display all tables in the invoice database. 
+
+
+2.      
+Create
+a procedure to find greatest of 3 numbers.
+
+
+3.      
+Create
+a procedure to display invoice details of a particular customer.
+
+
+
+
+
+
+
+
+1.      
+Create
+a procedure to display all tables in the invoice database. 
+
+
+mysql> delimiter //
+mysql> create procedure INVOICE()
+    -> begin
+    -> SELECT * FROM CUST;
+    -> SELECT * FROM PRODUCT;
+    -> SELECT * FROM INVOICE_ITEMS;
+    -> SELECT * FROM INVOICE_MASTER;
+    -> end//
+Query OK, 0 rows affected (0.45 sec)
+
+mysql> call INVOICE();
+    -> //
++---------+--------+------------+-----------+-----------+
+| CUST_ID | NAME   | ADDRESS    | CITY      | PH_NO     |
++---------+--------+------------+-----------+-----------+
+|       1 | ASWIN  | KIZHAKKOTH | KOZHIKODE | 974378727 |
+|       2 | ARJUN  | PANNUR     | EKM       | 993456449 |
+|       3 | ARUN   | VATOLI     | TVM       | 974378727 |
+|       4 | JITHU  | VATOLI     | WND       | 953937782 |
+|       5 | JUNAID | KODUVALLY  | MLP       | 987658998 |
+|       6 | MIDHUN | KANNUR     | KNR       | 813881340 |
+|       7 | ANAND  | MAHE       | KNR       |      NULL |
+|       8 | SANAN  | VADAKARA   | KNR       | 987654322 |
+|       9 | ALEN   | KANNUR     | KNR       | 987654328 |
++---------+--------+------------+-----------+-----------+
+9 rows in set (0.00 sec)
+
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12240 |
+|   11 | CRICKET_BALL   |   510 |
+|   12 | CRICKET_PAD    |  2040 |
+|   13 | CRICKET HELMET |  4080 |
+|   14 | STUMPS         |  1020 |
+|   15 | GLOWS          |   102 |
+|   16 | CAP            |  81.6 |
+|   17 | JERSY          | 122.4 |
+|   18 | SOAP           |   510 |
++------+----------------+-------+
+9 rows in set (0.00 sec)
+
++--------+------+----------+
+| INV_ID | P_ID | QUANTITY |
++--------+------+----------+
+|    100 |   10 |        2 |
+|    102 |   11 |        5 |
+|    104 |   12 |        2 |
+|    104 |   14 |        3 |
+|    105 |   12 |        4 |
+|    105 |   15 |        5 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|    100 |       1 | 2022-01-31 |
+|    101 |       2 | 2022-03-01 |
+|    102 |       3 | 2022-03-31 |
+|    103 |       4 | 2022-02-15 |
+|    104 |       5 | 2022-08-16 |
+|    105 |       6 | 2022-06-21 |
+|    106 |       7 | 2022-01-15 |
++--------+---------+------------+
+7 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+
+
+
+
+
+2.Create
+a procedure to find greatest of 3 numbers.
+
+mysql> delimiter //
+mysql> create procedure greatest (a int, b int, c int)
+    -> begin
+    -> if(a>b) and (a>c)then
+    -> select a as 'Greatest';
+    -> elseif(b>a) and (b>c)then
+    -> select b as 'Greatest';
+    -> else
+    -> select c as 'Greatest';
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.51 sec)
+
+
+mysql> call Greatest (1,2,3) //
++----------+
+| Greatest |
++----------+
+|        3 |
++----------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> 
+
+3.      
+Create
+a procedure to display invoice details of a particular customer.
+
+
+ delimiter //
+mysql> create procedure INV_DETAIL (a VARCHAR(10))
+    -> begin
+    -> select INV_ID,INV_DATE,PRICE,QUANTITY FROM CUST
+    -> natural join INVOICE_MASTER
+    -> natural join INVOICE_ITEMS
+    -> natural join PRODUCT
+    -> where name=a;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> call INV_DETAIL('MIDHUN') //
++--------+------------+-------+----------+
+| INV_ID | INV_DATE   | PRICE | QUANTITY |
++--------+------------+-------+----------+
+|    105 | 2022-06-21 |  2040 |        4 |
+|    105 | 2022-06-21 |   102 |        5 |
++--------+------------+-------+----------+
+2 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+
+
+
+
+
+
+
+
+
+
+
