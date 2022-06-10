@@ -42,3 +42,4 @@ mysql> select P_NAME,PRICE,price_range(price)from PRODUCT;
 
 mysql> 
 
+//VERIFIED
