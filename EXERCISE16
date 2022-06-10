@@ -88,3 +88,4 @@ mysql> SELECT *FROM PRODUCT;//
 +------+----------------+-------+
 10 rows in set (0.00 sec)
 
+//VERIFIED
