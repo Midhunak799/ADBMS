@@ -1,0 +1,90 @@
+16
+PL/SQL PROGRAMS – TRIGGERS
+
+
+1.      
+Create
+a trigger to handle updates to the customer table. 
+
+
+2.      
+Create
+a trigger to handle inserts to the product relation ( if price < 5 the set
+price to 10).
+Class comments
+Your work
+Assigned
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> delimiter //
+mysql>  CREATE  TABLE CUST_S(CUST_ID INT,NAME VARCHAR(20),ADDRESS VARCHAR(40),CITY VARCHAR(20),PH_NO INT);
+    -> //
+Query OK, 0 rows affected (0.31 sec)
+
+
+1.Create a trigger to handle updates to the customer table. 
+----------------------------------------------------------------
+
+
+
+mysql> CREATE TRIGGER MDN BEFORE UPDATE ON CUST
+    -> FOR EACH ROW
+    -> BEGIN
+    -> INSERT INTO CUST_S
+    -> VALUES(OLD.CUST_ID,OLD.NAME,OLD.ADDRESS,OLD.CITY,OLD.PH_NO);    -> END;
+    -> //
+Query OK, 0 rows affected (0.08 sec)
+
+
+
+
+mysql> UPDATE CUST SET NAME='KARNAN' WHERE NAME='ARUN';//
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT *FROM CUST_S;//
++---------+------+---------+------+-----------+
+| CUST_ID | NAME | ADDRESS | CITY | PH_NO     |
++---------+------+---------+------+-----------+
+|       3 | ARUN | VATOLI  | TVM  | 974378727 |
++---------+------+---------+------+-----------+
+1 row in set (0.00 sec)
+------------------------------------------------------------------------------------------
+
+2.Create a trigger to handle inserts to the product relation ( if price < 5 the setprice to 10).
+--------------------------------------------------------------------------------------------------
+
+
+mysql> INSERT INTO PRODUCT VALUES(19,'SPIKE',4);//
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT *FROM PRODUCT;//
++------+----------------+-------+
+| P_ID | P_NAME         | PRICE |
++------+----------------+-------+
+|   10 | CRICKET_BAT    | 12240 |
+|   11 | CRICKET_BALL   |   510 |
+|   12 | CRICKET_PAD    |  2040 |
+|   13 | CRICKET HELMET |  4080 |
+|   14 | STUMPS         |  1020 |
+|   15 | GLOWS          |   102 |
+|   16 | CAP            |  81.6 |
+|   17 | JERSY          | 122.4 |
+|   18 | SOAP           |   510 |
+|   19 | SPIKE          |    10 |
++------+----------------+-------+
+10 rows in set (0.00 sec)
+
