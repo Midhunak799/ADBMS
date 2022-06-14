@@ -1,0 +1,179 @@
+
+
+
+
+1.      Write
+a MongoDB query to create an INVOICE database and collections (CUSTOMER,
+PRODUCT) and its corresponding documents.
+
+
+2.Write a MongoDB query to find all documents from the collection CUSTOMER 
+
+
+3.      Write
+a MongoDB query to update the city in the collection CUSTOMER.
+
+
+4.      Write
+a MongoDB query to delete the first matched document whose city is “Calicut”.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+1.Write a MongoDB query to create an INVOICE database and collections (CUSTOMER,
+PRODUCT) and its corresponding documents.
+
+
+
+use invoice
+switched to db invoice
+
+>  db.CUSTOMER.insert({"NAME":"MIDHUN","CITY":"KKD","PHNO":8900787868,"AGE":26})
+WriteResult({ "nInserted" : 1 })
+> db.CUSTOMER.insert({"NAME":"JITHU","CITY":"WND","PHNO":8900787869,"AGE":26})
+WriteResult({ "nInserted" : 1 })
+> db.CUSTOMER.insert({"NAME":"JUNAID","CITY":"MLP","PHNO":8900787860,"AGE":27})
+WriteResult({ "nInserted" : 1 })
+> db.CUSTOMER.insert({"NAME":"SANAN","CITY":"MLP","PHNO":8900787861,"AGE":24})
+WriteResult({ "nInserted" : 1 })
+> db.CUSTOMER.insert({"NAME":"ANAND","CITY":"KNR","PHNO":8900787861,"AGE":23})
+WriteResult({ "nInserted" : 1 })
+> 
+> 
+> 
+> 
+> db.PRODUCT.insert({"PNAME":"BAT","PRICE":"5000"})
+WriteResult({ "nInserted" : 1 })
+> db.PRODUCT.insert({"PNAME":"BALL","PRICE":"1000"})
+WriteResult({ "nInserted" : 1 })
+> db.PRODUCT.insert({"PNAME":"JERSY","PRICE":"500"})
+WriteResult({ "nInserted" : 1 })
+> db.PRODUCT.insert({"PNAME":"STUMPS","PRICE":"300"})
+WriteResult({ "nInserted" : 1 })
+> db.PRODUCT.insert({"PNAME":"GLOWS","PRICE":"200"})
+WriteResult({ "nInserted" : 1 })
+> 
+> 
+> 
+> 
+> 2.Write a MongoDB query to find all documents from the collection CUSTOMER 
+> 
+> 
+> 
+> 
+> db.CUSTOMER.find().pretty()
+
+{
+	"_id" : ObjectId("62a822700d81907b38b8a3bc"),
+	"NAME" : "MIDHUN",
+	"CITY" : "KKD",
+	"PHNO" : 8900787868,
+	"AGE" : 26
+}
+{
+	"_id" : ObjectId("62a822980d81907b38b8a3bd"),
+	"NAME" : "JITHU",
+	"CITY" : "WND",
+	"PHNO" : 8900787869,
+	"AGE" : 26
+}
+{
+	"_id" : ObjectId("62a822bc0d81907b38b8a3be"),
+	"NAME" : "JUNAID",
+	"CITY" : "MLP",
+	"PHNO" : 8900787860,
+	"AGE" : 27
+}
+{
+	"_id" : ObjectId("62a822d90d81907b38b8a3bf"),
+	"NAME" : "SANAN",
+	"CITY" : "MLP",
+	"PHNO" : 8900787861,
+	"AGE" : 24
+}
+{
+	"_id" : ObjectId("62a822fc0d81907b38b8a3c0"),
+	"NAME" : "ANAND",
+	"CITY" : "KNR",
+	"PHNO" : 8900787861,
+	"AGE" : 23
+}
+> 
+> 
+> 
+> 
+> 
+
+
+
+
+3.      Write
+a MongoDB query to update the city in the collection CUSTOMER.
+
+
+
+
+
+db.CUSTOMER.update({CITY:"KNR"},{$set:{CITY:"MAHE"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.CUSTOMER.find().pretty()
+
+
+"_id" : ObjectId("62a822fc0d81907b38b8a3c0"),
+	"NAME" : "ANAND",
+	"CITY" : "MAHE",
+	"PHNO" : 8900787861,
+	"AGE" : 23
+}
+
+
+
+
+
+4.      Write
+a MongoDB query to delete the first matched document whose city is “KKD”.
+
+
+
+
+ db.CUSTOMER.deleteOne({CITY:"KKD"})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.CUSTOMER.find().pretty()
+
+
+
+
+
+	"_id" : ObjectId("62a822980d81907b38b8a3bd"),
+	"NAME" : "JITHU",
+	"CITY" : "WND",
+	"PHNO" : 8900787869,
+	"AGE" : 26
+}
+{
+	"_id" : ObjectId("62a822bc0d81907b38b8a3be"),
+	"NAME" : "JUNAID",
+	"CITY" : "MLP",
+	"PHNO" : 8900787860,
+	"AGE" : 27
+}
+{
+	"_id" : ObjectId("62a822d90d81907b38b8a3bf"),
+	"NAME" : "SANAN",
+	"CITY" : "MLP",
+	"PHNO" : 8900787861,
+	"AGE" : 24
+}
+{
+	"_id" : ObjectId("62a822fc0d81907b38b8a3c0"),
+	"NAME" : "ANAND",
+	"CITY" : "MAHE",
+	"PHNO" : 8900787861,
+	"AGE" : 23
+}
+> 
+
+

@@ -1,0 +1,64 @@
+
+1.Write a MongoDB query to display the customer documents having city ‘Wnd’,’MLP’.
+
+db.CUSTOMER.find({$or:[{"CITY":"WND"},{"CITY":"MLP"}]}).pretty();
+{
+	"_id" : ObjectId("62a822980d81907b38b8a3bd"),
+	"NAME" : "JITHU",
+	"CITY" : "WND",
+	"PHNO" : 8900787869,
+	"AGE" : 26
+}
+{
+	"_id" : ObjectId("62a822bc0d81907b38b8a3be"),
+	"NAME" : "JUNAID",
+	"CITY" : "MLP",
+	"PHNO" : 8900787860,
+	"AGE" : 27
+}
+{
+	"_id" : ObjectId("62a822d90d81907b38b8a3bf"),
+	"NAME" : "SANAN",
+	"CITY" : "MLP",
+	"PHNO" : 8900787861,
+	"AGE" : 24
+}
+
+
+2.Write a MongoDB query to display all customer documents who have age >24.
+
+db.CUSTOMER.find({"AGE":{$gt:24}}).pretty();
+{
+	"_id" : ObjectId("62a822980d81907b38b8a3bd"),
+	"NAME" : "JITHU",
+	"CITY" : "WND",
+	"PHNO" : 8900787869,
+	"AGE" : 26
+}
+{
+	"_id" : ObjectId("62a822bc0d81907b38b8a3be"),
+	"NAME" : "JUNAID",
+	"CITY" : "MLP",
+	"PHNO" : 8900787860,
+	"AGE" : 27
+}
+
+
+3.Write a MongoDB query to find customer documents who not live in ‘MLP’.
+
+db.CUSTOMER.find({"CITY":{$ne:"MLP"}}).pretty();
+{
+	"_id" : ObjectId("62a822980d81907b38b8a3bd"),
+	"NAME" : "JITHU",
+	"CITY" : "WND",
+	"PHNO" : 8900787869,
+	"AGE" : 26
+}
+{
+	"_id" : ObjectId("62a822fc0d81907b38b8a3c0"),
+	"NAME" : "ANAND",
+	"CITY" : "MAHE",
+	"PHNO" : 8900787861,
+	"AGE" : 23
+}
+
