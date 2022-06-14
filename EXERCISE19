@@ -62,3 +62,4 @@ db.CUSTOMER.find({"CITY":{$ne:"MLP"}}).pretty();
 	"AGE" : 23
 }
 
+//VERIFIED
